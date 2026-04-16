@@ -1,0 +1,37 @@
+cat <<EOF > templates/chat.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brana Chat - {{ group.name }}</title>
+    <style>
+        body { background: #f0f2f5; font-family: sans-serif; margin: 0; }
+        .chat-header { background: #1877f2; color: white; padding: 15px; position: sticky; top: 0; }
+        .message-box { padding: 10px; height: 70vh; overflow-y: scroll; display: flex; flex-direction: column; }
+        .msg { padding: 10px; border-radius: 15px; margin: 5px; max-width: 70%; }
+        .sent { background: #dcf8c6; align-self: flex-end; }
+        .received { background: white; align-self: flex-start; }
+        .input-area { position: fixed; bottom: 0; width: 100%; background: white; padding: 10px; display: flex; }
+        input { flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ddd; outline: none; }
+    </style>
+</head>
+<body>
+    <div class="chat-header">
+        <a href="/feed" style="color:white; text-decoration:none;">←</a> {{ group.name }}
+    </div>
+    <div class="message-box">
+        {% for msg in messages %}
+            <div class="msg {% if msg.user_id == current_user.id %}sent{% else %}received{% endif %}">
+                <small style="color:#888;">{{ msg.sender.username }}</small><br>
+                {{ msg.content }}
+            </div>
+        {% endfor %}
+    </div>
+    <form class="input-area" method="POST">
+        <input type="text" name="message" placeholder="መልእክት ይጻፉ..." required>
+        <button type="submit" style="border:none; background:none; color:#1877f2; font-weight:bold; margin-left:10px;">ላክ</button>
+    </form>
+</body>
+</html>
+EOF
+

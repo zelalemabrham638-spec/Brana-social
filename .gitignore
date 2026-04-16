@@ -1,0 +1,9 @@
+.local/
+.cache/
+storage/
+.termux/
+*.db
+*.pyc
+.bash_history
+.gitconfig
+.python_history

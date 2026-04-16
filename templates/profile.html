@@ -1,0 +1,53 @@
+cat <<EOF > templates/profile.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }} - Profile</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        .header { background: #1f1f1f; padding: 30px; border-bottom: 1px solid #ff9800; }
+        .pp { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #ff9800; margin-bottom: 10px; }
+        .stats { display: flex; justify-content: center; gap: 30px; margin: 20px 0; font-size: 14px; }
+        .container { max-width: 450px; margin: auto; padding: 15px; }
+        .post-card { background: #1f1f1f; padding: 15px; border-radius: 12px; margin-bottom: 10px; text-align: left; border: 1px solid #333; }
+        .btn-edit { background: none; border: 1px solid #ff9800; color: #ff9800; padding: 5px 15px; border-radius: 15px; text-decoration: none; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ user.pp_url }}" class="pp">
+        <h2 style="margin:5px 0;">@{{ user.username }}</h2>
+        <p style="color:#bbb; font-size:14px;">{{ user.bio }}</p>
+        
+        <div class="stats">
+            <div><strong>{{ user.posts|length }}</strong><br>Posts</div>
+            <div><strong>0</strong><br>Followers</div>
+            <div><strong>0</strong><br>Following</div>
+        </div>
+
+        {% if user == current_user %}
+            <a href="/logout" class="btn-edit" style="border-color:#ff5252; color:#ff5252;">Logout</a>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <h3 style="text-align:left; color:#ff9800;">የእርስዎ ፖስቶች</h3>
+        {% for post in posts %}
+        <div class="post-card">
+            <p>{{ post.content }}</p>
+            {% if post.image_url %}
+                <img src="{{ post.image_url }}" style="width:100%; border-radius:8px;">
+            {% endif %}
+            <div style="font-size:12px; color:#555; margin-top:5px;">👁️ {{ post.views }} views</div>
+        </div>
+        {% endfor %}
+        <br>
+        <a href="/feed" style="color:#ff9800; text-decoration:none;">← ወደ Feed ተመለስ</a>
+    </div>
+</body>
+</html>
+EOF
+
+
+

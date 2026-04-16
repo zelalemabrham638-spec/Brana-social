@@ -1,0 +1,33 @@
+cat <<EOF > templates/login.html
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brana - Login</title>
+    <style>
+        body { background: #f0f2f5; font-family: Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
+        .logo { color: #1877f2; font-size: 40px; font-weight: bold; margin-bottom: 10px; }
+        input { width: 100%; padding: 14px; margin: 6px 0; border: 1px solid #dddfe2; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        input:focus { border-color: #1877f2; outline: none; box-shadow: 0 0 0 2px #e7f3ff; }
+        .btn-login { background: #1877f2; color: white; border: none; padding: 14px; width: 100%; border-radius: 6px; font-weight: bold; font-size: 20px; cursor: pointer; margin-top: 10px; }
+        .btn-reg { background: #42b72a; color: white; border: none; padding: 12px; width: 60%; border-radius: 6px; font-weight: bold; font-size: 17px; cursor: pointer; margin-top: 20px; }
+        hr { border: none; border-top: 1px solid #dadde1; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo">Brana</div>
+        <form method="POST">
+            <input type="text" name="identifier" placeholder="ኢሜይል ወይም ስልክ ቁጥር" required>
+            <input type="password" name="password" placeholder="ሚስጥር ቃል" required>
+            <button type="submit" class="btn-login">ግባ / Log In</button>
+        </form>
+        <div style="margin-top:15px;"><a href="#" style="color:#1877f2; text-decoration:none; font-size:14px;">Forgot password?</a></div>
+        <hr>
+        <button class="btn-reg" onclick="location.href='/register'">አዲስ አካውንት ፍጠር</button>
+    </div>
+</body>
+</html>
+EOF

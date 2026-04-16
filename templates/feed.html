@@ -1,0 +1,54 @@
+cat <<EOF > templates/feed.html
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brana Feed</title>
+    <style>
+        body { background: #f0f2f5; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        .nav { background: white; width: 100%; max-width: 500px; padding: 10px 15px; display: flex; align-items: center; position: sticky; top: 0; border-bottom: 1px solid #ddd; z-index: 100; box-sizing: border-box; }
+        .logo { color: #1877f2; font-size: 22px; font-weight: bold; text-decoration: none; margin-right: 10px; }
+        .search-bar { flex: 1; background: #f0f2f5; border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; }
+        .search-input { border: none; background: none; outline: none; width: 100%; padding: 5px; font-size: 14px; }
+        .container { width: 100%; max-width: 500px; padding: 10px; box-sizing: border-box; }
+        .post-card { background: white; margin-bottom: 12px; padding: 15px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .btn-action { background: none; border: none; color: #65676b; font-weight: bold; cursor: pointer; margin-right: 15px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="/feed" class="logo">Brana</a>
+        <form action="/feed" method="GET" class="search-bar">
+            <input type="text" name="search" class="search-input" placeholder="ሰዎችን ወይም ፖስቶችን ፈልግ...">
+        </form>
+        <a href="/profile" style="margin-left:10px; text-decoration:none;">👤</a>
+    </div>
+
+    <div class="container">
+        <div style="background:white; padding:15px; border-radius:8px; margin-bottom:12px;">
+            <form action="/post" method="POST">
+                <textarea name="content" style="width:100%; border:none; background:#f0f2f5; padding:10px; border-radius:10px; outline:none;" placeholder="ምን አዲስ ነገር አለ?" required></textarea>
+                <button type="submit" style="background:#1877f2; color:white; border:none; padding:8px; width:100%; border-radius:5px; margin-top:5px; font-weight:bold;">አጋራ / Post</button>
+            </form>
+        </div>
+
+        {% for post in posts %}
+        <div class="post-card">
+            <div style="font-weight:bold; margin-bottom:5px;">@{{ post.author.username }}</div>
+            <div style="margin-bottom:10px;">{{ post.content[:150] }}{% if post.content|length > 150 %}... <a href="/post/{{ post.id }}" style="color:#1877f2; text-decoration:none;">ተጨማሪ አንብብ</a>{% endif %}</div>
+            {% if post.image_url %}
+                <img src="{{ post.image_url }}" style="width:100%; border-radius:8px;">
+            {% endif %}
+            <div style="border-top:1px solid #eee; margin-top:10px; padding-top:10px;">
+                <button class="btn-action" onclick="location.href='/like/{{ post.id }}'">👍 Like ({{ post.likes|length }})</button>
+                <button class="btn-action" onclick="location.href='/post/{{ post.id }}'">💬 Comment</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+EOF
+
+

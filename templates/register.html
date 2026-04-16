@@ -1,0 +1,42 @@
+cat <<EOF > templates/register.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brana - Register</title>
+    <style>
+        body { background: #121212; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .register-card { background: #1f1f1f; padding: 30px; border-radius: 15px; width: 90%; max-width: 350px; text-align: center; border: 1px solid #333; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #2d2d2d; color: white; box-sizing: border-box; outline: none; }
+        input:focus { border-color: #ff9800; }
+        .btn { background: #ff9800; color: black; border: none; padding: 12px; width: 100%; border-radius: 25px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .msg { color: #ff5252; font-size: 13px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="register-card">
+        <h2 style="color:#ff9800;">Brana Social</h2>
+        <p style="font-size: 14px; color: #bbb;">አዲስ አካውንት ይክፈቱ</p>
+        
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="msg">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <input type="text" name="username" placeholder="ሙሉ ስም (Username)" required>
+            <input type="text" name="identifier" placeholder="ኢሜይል ወይም ስልክ ቁጥር" required>
+            <input type="password" name="password" placeholder="ሚስጥር ቃል (Password)" required>
+            <button type="submit" class="btn">REGISTER / ተመዝገብ</button>
+        </form>
+        <p style="font-size: 14px; margin-top: 15px;">አካውንት አለህ? <a href="/login" style="color:#ff9800;">ግባ (Login)</a></p>
+    </div>
+</body>
+</html>
+EOF
+
+
+
